@@ -3,6 +3,7 @@ import React, { useMemo } from "react";
 import { useMoralis } from "react-moralis";
 import CreateGuild from "utils/smart-contract/CreateGuild";
 import Mint from "utils/smart-contract/Mint";
+import CreatePoll from "./CreatePoll";
 
 const { Text } = Typography;
 
@@ -44,6 +45,7 @@ export default function QuickStart({ isServerInfo }) {
       >
         <CreateGuild />
         <Mint guildId={1} />
+        <CreatePoll />
       </Card>
     </div>
   );
