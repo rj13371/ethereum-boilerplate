@@ -41,13 +41,10 @@ export default function MintNFT(props) {
 
   return (
     <>
-      <Button
-        id="Mint"
-        onClick={() => mintNFT()}
-        text="Mint Guild Membership"
-        theme="primary"
-        type="button"
-      />
+      <Button onClick={() => mintNFT()} type="primary">
+        {" "}
+        Mint Guild Membership{" "}
+      </Button>
     </>
   );
 }
