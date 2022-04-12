@@ -6,14 +6,15 @@ import { getAddress } from "@ethersproject/address";
 const hub = "https://hub.snapshot.org"; // or https://testnet.snapshot.org for testnet
 const client = new snapshot.Client712(hub);
 
-export async function createProposal(title, body, date, choices, currentBlock) {
-  const web3Modal = new Web3Modal({
-    network: "rinkeby",
-    cacheProvider: false,
-  });
+const web3Modal = new Web3Modal({
+  network: "rinkeby",
+  cacheProvider: false,
+});
 
-  const web3 = new Web3Provider(window.ethereum);
-  web3Modal.clearCachedProvider();
+const web3 = new Web3Provider(window.ethereum);
+web3Modal.clearCachedProvider();
+
+export async function createProposal(title, body, date, choices, currentBlock) {
   const provider_ = await web3Modal.connect();
   const account = provider_.accounts?.[0] || provider_.selectedAddress;
   const timestamp = Math.round(new Date().getTime() / 1000);
@@ -44,17 +45,10 @@ export async function createProposal(title, body, date, choices, currentBlock) {
 }
 
 export async function vote(proposalId, choice) {
-  const web3Modal = new Web3Modal({
-    network: "rinkeby",
-    cacheProvider: false,
-  });
-
-  const web3 = new Web3Provider(window.ethereum);
-  web3Modal.clearCachedProvider();
   const provider_ = await web3Modal.connect();
   const account = provider_.accounts?.[0] || provider_.selectedAddress;
 
-  const receipt = await client.vote(web3, account, {
+  const receipt = await client.vote(web3, getAddress(account), {
     space: "dappchain.eth",
     proposal: proposalId,
     type: "single-choice",
