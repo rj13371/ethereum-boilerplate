@@ -76,7 +76,9 @@ export default function CreateGuild() {
           extra="Upload to IPFS"
         >
           <Upload name="logo" listType="picture">
-            <Button icon={<UploadOutlined />}>Click to upload</Button>
+            <Button accept="image/*" icon={<UploadOutlined />}>
+              Click to upload
+            </Button>
           </Upload>
         </Form.Item>
 

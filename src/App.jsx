@@ -8,10 +8,9 @@ import {
 } from "react-router-dom";
 import Account from "components/Account/Account";
 import Chains from "components/Chains";
-import TokenPrice from "components/TokenPrice";
+import Guild from "components/Guild";
 import ERC20Balance from "components/ERC20Balance";
 import ERC20Transfers from "components/ERC20Transfers";
-import DEX from "components/DEX";
 import NFTBalance from "components/NFTBalance";
 import Wallet from "components/Wallet";
 import { Layout } from "antd";
@@ -59,8 +58,10 @@ const App = ({ isServerInfo }) => {
 
   useEffect(() => {
     const connectorId = window.localStorage.getItem("connectorId");
-    if (isAuthenticated && !isWeb3Enabled && !isWeb3EnableLoading)
+    if (isAuthenticated && !isWeb3Enabled && !isWeb3EnableLoading) {
       enableWeb3({ provider: connectorId });
+    }
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isAuthenticated, isWeb3Enabled]);
 
@@ -79,6 +80,9 @@ const App = ({ isServerInfo }) => {
 
         <div style={styles.content}>
           <Switch>
+            <Route path="/guild/:id">
+              <Guild />
+            </Route>
             <Route exact path="/quickstart">
               <QuickStart isServerInfo={isServerInfo} />
             </Route>

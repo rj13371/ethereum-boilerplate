@@ -6,8 +6,6 @@ import "./index.css";
 import * as serviceWorkerRegistration from "./serviceWorkerRegistration";
 import QuickStart from "components/QuickStart";
 
-/** Get your free Moralis Account https://moralis.io/ */
-
 const APP_ID = process.env.REACT_APP_MORALIS_APPLICATION_ID;
 const SERVER_URL = process.env.REACT_APP_MORALIS_SERVER_URL;
 

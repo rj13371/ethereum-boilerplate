@@ -4,6 +4,7 @@ import { useMoralis } from "react-moralis";
 import CreateGuild from "utils/smart-contract/CreateGuild";
 import Mint from "utils/smart-contract/Mint";
 import CreatePoll from "./CreatePoll";
+import { NFT_CONTRACT_ABI, NFT_CONTRACT_ADDRESS } from "../constants.js";
 
 const { Text } = Typography;
 
@@ -26,12 +27,24 @@ const styles = {
 };
 
 export default function QuickStart({ isServerInfo }) {
-  const { Moralis } = useMoralis();
+  const { Moralis, isWeb3Enabled, enableWeb3, isAuthenticated } = useMoralis();
 
-  const isInchDex = useMemo(
-    () => (Moralis.Plugins?.oneInch ? true : false),
-    [Moralis.Plugins?.oneInch],
-  );
+  useMemo(() => {
+    if (isWeb3Enabled) {
+      const getGuilds = async () => {
+        const sendOptions = {
+          contractAddress: NFT_CONTRACT_ADDRESS,
+          abi: NFT_CONTRACT_ABI,
+          functionName: "returnGuilds",
+          chain: "rinkeby",
+        };
+        const transaction = await Moralis.executeFunction(sendOptions);
+
+        console.log(transaction);
+      };
+      getGuilds();
+    }
+  }, [isWeb3Enabled]);
 
   return (
     <div style={{ display: "flex", gap: "10px" }}>
