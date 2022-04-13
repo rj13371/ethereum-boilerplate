@@ -1,5 +1,6 @@
 import { Card, Typography } from "antd";
 import React from "react";
+import CreateGuild from "utils/smart-contract/CreateGuild";
 
 const { Text } = Typography;
 
@@ -21,17 +22,12 @@ const styles = {
   },
 };
 
-export default function QuickStart() {
+export default function CreateGuildPage() {
   return (
     <div style={{ display: "flex", gap: "10px" }}>
-      <Card
-        style={styles.card}
-        title={
-          <>
-            📝 <Text strong>To-Do List</Text>
-          </>
-        }
-      ></Card>
+      <Card style={styles.card}>
+        <CreateGuild />
+      </Card>
     </div>
   );
 }

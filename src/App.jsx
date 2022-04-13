@@ -20,6 +20,8 @@ import "./style.css";
 import QuickStart from "components/QuickStart";
 import Text from "antd/lib/typography/Text";
 import MenuItems from "./components/MenuItems";
+import GuildsPage from "components/GuildsPage";
+import CreateGuildPage from "components/CreateGuildPage";
 const { Header, Footer } = Layout;
 
 const styles = {
@@ -82,6 +84,12 @@ const App = ({ isServerInfo }) => {
           <Switch>
             <Route path="/guild/:id">
               <Guild />
+            </Route>
+            <Route path="/guild">
+              <GuildsPage />
+            </Route>
+            <Route path="/create">
+              <CreateGuildPage />
             </Route>
             <Route exact path="/quickstart">
               <QuickStart isServerInfo={isServerInfo} />

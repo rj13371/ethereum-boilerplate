@@ -6,8 +6,9 @@ import {
   faHome,
   faWallet,
   faPiggyBank,
-  faMoneyBillTransfer,
+  faPeopleRoof,
   faAddressCard,
+  faDragon,
 } from "@fortawesome/free-solid-svg-icons";
 
 function MenuItems() {
@@ -44,10 +45,16 @@ function MenuItems() {
           Balances
         </NavLink>
       </Menu.Item>
-      <Menu.Item key="/erc20transfers">
-        <NavLink to="/erc20transfers">
-          <FontAwesomeIcon icon={faMoneyBillTransfer} /> {"   "}
-          Transfers
+      <Menu.Item key="/create">
+        <NavLink to="/create">
+          <FontAwesomeIcon icon={faDragon} /> {"   "}
+          Create
+        </NavLink>
+      </Menu.Item>
+      <Menu.Item key="/guild">
+        <NavLink to="/guild">
+          <FontAwesomeIcon icon={faPeopleRoof} /> {"   "}
+          Join
         </NavLink>
       </Menu.Item>
       <Menu.Item key="/nftBalance">

@@ -16,7 +16,13 @@ export default function GuildsDisplay(props) {
           <Card
             hoverable
             style={{ width: 240 }}
-            cover={<img alt={`${guild[1]}'s logo`} src={guild[2]} />}
+            cover={
+              <img
+                style={{ width: 200, height: 200 }}
+                alt={`${guild[1]}'s logo`}
+                src={guild[2]}
+              />
+            }
           >
             <Meta
               title={`${guild[1]}`}
