@@ -1,9 +1,10 @@
 import { Card, Timeline, Typography } from "antd";
-import React, { useMemo, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { useMoralis } from "react-moralis";
 import CreateGuild from "utils/smart-contract/CreateGuild";
 import Mint from "utils/smart-contract/Mint";
 import CreatePoll from "./CreatePoll";
+import GuildsDisplay from "./GuildsDisplay";
 import { NFT_CONTRACT_ABI, NFT_CONTRACT_ADDRESS } from "../constants.js";
 
 const { Text } = Typography;
@@ -28,9 +29,9 @@ const styles = {
 
 export default function QuickStart() {
   const { Moralis, isWeb3Enabled } = useMoralis();
-  const [guilds, setGuilds] = useState();
+  const [guilds, setGuilds] = useState([]);
 
-  useMemo(() => {
+  useEffect(() => {
     if (isWeb3Enabled) {
       const getGuilds = async () => {
         const sendOptions = {
@@ -42,10 +43,12 @@ export default function QuickStart() {
         const transaction = await Moralis.executeFunction(sendOptions);
 
         console.log(transaction);
+        setGuilds(transaction);
       };
       getGuilds();
     }
   }, [isWeb3Enabled]);
+  console.log(guilds);
 
   return (
     <div style={{ display: "flex", gap: "10px" }}>
@@ -60,6 +63,7 @@ export default function QuickStart() {
         <CreateGuild />
         <Mint guildId={1} />
         <CreatePoll />
+        {guilds.length > 0 && <GuildsDisplay guilds={guilds} />}
       </Card>
     </div>
   );
