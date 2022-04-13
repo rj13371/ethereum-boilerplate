@@ -1,6 +1,14 @@
 import { useLocation } from "react-router";
 import { Menu } from "antd";
 import { NavLink } from "react-router-dom";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faHome,
+  faWallet,
+  faPiggyBank,
+  faMoneyBillTransfer,
+  faAddressCard,
+} from "@fortawesome/free-solid-svg-icons";
 
 function MenuItems() {
   const { pathname } = useLocation();
@@ -19,19 +27,33 @@ function MenuItems() {
       defaultSelectedKeys={[pathname]}
     >
       <Menu.Item key="/quickstart">
-        <NavLink to="/quickstart">🚀 Home</NavLink>
+        <NavLink to="/quickstart">
+          <FontAwesomeIcon icon={faHome} /> {"   "} Home
+        </NavLink>
       </Menu.Item>
       <Menu.Item key="/wallet">
-        <NavLink to="/wallet">👛 Wallet</NavLink>
+        <NavLink to="/wallet">
+          <FontAwesomeIcon icon={faWallet} /> {"   "}
+          Wallet
+        </NavLink>
       </Menu.Item>
       <Menu.Item key="/erc20balance">
-        <NavLink to="/erc20balance">💰 Balances</NavLink>
+        <NavLink to="/erc20balance">
+          <FontAwesomeIcon icon={faPiggyBank} />
+          {"   "}
+          Balances
+        </NavLink>
       </Menu.Item>
       <Menu.Item key="/erc20transfers">
-        <NavLink to="/erc20transfers">💸 Transfers</NavLink>
+        <NavLink to="/erc20transfers">
+          <FontAwesomeIcon icon={faMoneyBillTransfer} /> {"   "}
+          Transfers
+        </NavLink>
       </Menu.Item>
       <Menu.Item key="/nftBalance">
-        <NavLink to="/nftBalance">🖼 NFTs</NavLink>
+        <NavLink to="/nftBalance">
+          <FontAwesomeIcon icon={faAddressCard} /> {"   "}NFTs
+        </NavLink>
       </Menu.Item>
     </Menu>
   );

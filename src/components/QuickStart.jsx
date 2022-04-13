@@ -1,5 +1,5 @@
 import { Card, Timeline, Typography } from "antd";
-import React, { useMemo } from "react";
+import React, { useMemo, useState } from "react";
 import { useMoralis } from "react-moralis";
 import CreateGuild from "utils/smart-contract/CreateGuild";
 import Mint from "utils/smart-contract/Mint";
@@ -26,8 +26,9 @@ const styles = {
   },
 };
 
-export default function QuickStart({ isServerInfo }) {
-  const { Moralis, isWeb3Enabled, enableWeb3, isAuthenticated } = useMoralis();
+export default function QuickStart() {
+  const { Moralis, isWeb3Enabled } = useMoralis();
+  const [guilds, setGuilds] = useState();
 
   useMemo(() => {
     if (isWeb3Enabled) {
