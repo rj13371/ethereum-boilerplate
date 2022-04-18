@@ -14,13 +14,20 @@ const web3Modal = new Web3Modal({
 const web3 = new Web3Provider(window.ethereum);
 web3Modal.clearCachedProvider();
 
-export async function createProposal(title, body, date, choices, currentBlock) {
+export async function createProposal(
+  title,
+  body,
+  date,
+  choices,
+  currentBlock,
+  address,
+) {
   const provider_ = await web3Modal.connect();
   const account = provider_.accounts?.[0] || provider_.selectedAddress;
   const timestamp = Math.round(new Date().getTime() / 1000);
 
   let toTimestamp = Date.parse(date._d);
-  console.log(title, body, date, choices, currentBlock);
+  console.log(title, body, date, choices, currentBlock, address);
   const end = toTimestamp / 1000;
   const start = timestamp;
 
@@ -35,8 +42,7 @@ export async function createProposal(title, body, date, choices, currentBlock) {
     timestamp,
     snapshot: currentBlock,
     network: "4",
-    strategies:
-      '[{"name":"erc721","network":"4","params":{"symbol":"GGD","address":"0x85214a5621c0EeE716bdC87748D865c197D2Cf0a"}}]',
+    strategies: `[{"name":"contract-call","network":"4","params":{"address":"0x676cEf263a2954DB6829383aa9d683c9cBc6B67c","symbol":"GGD","decimals":0,"args":["0x676cEf263a2954DB6829383aa9d683c9cBc6B67c", %{${address}}"],"methodABI":{"inputs":[{"internalType":"address","name":"account","type":"address"}],"name":"balanceOf","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"}}}]`,
     plugins: JSON.stringify({}),
     metadata: JSON.stringify({}),
   });
