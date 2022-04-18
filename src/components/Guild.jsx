@@ -1,5 +1,5 @@
 import { Card, Typography, Button } from "antd";
-import React, { useMemo, useState } from "react";
+import React, { useMemo, useState, useEffect } from "react";
 import { useMoralis } from "react-moralis";
 import Mint from "utils/smart-contract/Mint";
 import CreatePoll from "./CreatePoll";
@@ -32,8 +32,10 @@ export default function Guild() {
   const { Moralis, isWeb3Enabled } = useMoralis();
   const { id } = useParams();
   const [polls, setPolls] = useState([
-    { title: "", body: "", end: "", choices: [] },
+    { title: "", body: "", end: "", choices: [], id: "" },
   ]);
+
+  const [members, setMembers] = useState([]);
 
   const submitVote = async (proposalId, choice) => {
     console.log(proposalId, choice);
@@ -83,6 +85,7 @@ export default function Guild() {
           `,
         });
         setPolls(res.data.proposals);
+        console.log(res.data.proposals);
       };
       getPolls();
       const getGuilds = async () => {
@@ -93,6 +96,7 @@ export default function Guild() {
           chain: "rinkeby",
         };
         const transaction = await Moralis.executeFunction(sendOptions);
+        console.log(transaction);
         setGuild({
           guildMasterAddress: transaction[id][0],
           guildTitle: transaction[id][1],
@@ -100,8 +104,63 @@ export default function Guild() {
         });
       };
       getGuilds();
+
+      const getMembers = async () => {
+        const sendOptions = {
+          contractAddress: NFT_CONTRACT_ADDRESS,
+          abi: NFT_CONTRACT_ABI,
+          functionName: "returnGuildMembers",
+          chain: "rinkeby",
+          params: {
+            guildId: id,
+          },
+        };
+        const transaction = await Moralis.executeFunction(sendOptions);
+        console.log(transaction);
+        setMembers(transaction);
+      };
+      getMembers();
     }
   }, [isWeb3Enabled]);
+
+  // useMemo(() => {
+  //   if (isWeb3Enabled) {
+  //     const getVotingResultes = async () => {
+  //       const res = await client.query({
+  //         query: gql`
+  //           query Votes {
+  //             votes(
+  //               first: 1000
+  //               skip: 0
+  //               where: {
+  //                 proposal: "QmPvbwguLfcVryzBRrbY4Pb9bCtxURagdv1XjhtFLf3wHj"
+  //               }
+  //               orderBy: "created"
+  //               orderDirection: desc
+  //             ) {
+  //               id
+  //               voter
+  //               created
+  //               proposal {
+  //                 id
+  //               }
+  //               choice
+  //               space {
+  //                 id
+  //               }
+  //             }
+  //           }
+  //         `,
+  //       });
+  //       setPolls(res.data.votes);
+
+  //       for (const vote of res.data.votes) {
+  //       }
+  //     };
+
+  //     getGuilds();
+  //   }
+  // }, [polls]);
 
   return (
     <div style={{ display: "flex", gap: "10px" }}>
@@ -116,9 +175,9 @@ export default function Guild() {
         cover={<img alt="guild logo" src={guild.guildLogo || "error"} />}
       >
         <Mint guildId={id} />
-        <CreatePoll />
+        {members.length > 0 && <CreatePoll members={members} />}
       </Card>
-      {polls.length > 1 &&
+      {polls.length > 0 &&
         polls.map((poll) => (
           <Card
             id={poll.id}

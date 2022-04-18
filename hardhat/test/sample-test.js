@@ -1,19 +1,39 @@
 const { expect } = require("chai");
-const { ethers } = require("hardhat");
+const { ethers, waffle } = require("hardhat");
 
-describe("Greeter", function () {
-  it("Should return the new greeting once it's changed", async function () {
-    const Greeter = await ethers.getContractFactory("Greeter");
-    const greeter = await Greeter.deploy("Hello, world!");
-    await greeter.deployed();
+describe("GuildNFT tests", function () {
+  it("Should create a guild", async function () {
+    [deployer, user, ...addrs] = await ethers.getSigners();
 
-    expect(await greeter.greet()).to.equal("Hello, world!");
+    const GuildNFT = await ethers.getContractFactory("GuildNFT");
+    const guildNFTContract = await GuildNFT.deploy();
+    await guildNFTContract.deployed();
 
-    const setGreetingTx = await greeter.setGreeting("Hola, mundo!");
+    const createGuildTx = await guildNFTContract
+      .connect(user)
+      .createGuild("test", "www.google.com", 99);
 
-    // wait until the transaction is mined
-    await setGreetingTx.wait();
+    await guildNFTContract
+      .connect(user)
+      .createGuild("guild2", "www.google.com", 100);
 
-    expect(await greeter.greet()).to.equal("Hola, mundo!");
+    await guildNFTContract.connect(user).mintNFT(user.address, 0);
+    await guildNFTContract.connect(user).mintNFT(user.address, 1);
+    await guildNFTContract.connect(user).mintNFT(user.address, 0);
+
+    const balanceOf = await guildNFTContract
+      .connect(user)
+      .balanceOf(user.address);
+
+    const returnGuilds = await guildNFTContract.connect(user).returnGuilds();
+    const tokenIds = await guildNFTContract.connect(user).tokenIdsToGuildId(1);
+
+    const returnGuildMembers = await guildNFTContract
+      .connect(user)
+      .returnGuildMembers(0);
+
+    console.log(returnGuildMembers);
+
+    expect(returnGuilds[0].guildMasterAddress).to.equal(user.address);
   });
 });

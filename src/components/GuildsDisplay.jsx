@@ -12,7 +12,7 @@ export default function GuildsDisplay(props) {
       style={{ width: "100%", justifyContent: "center" }}
     >
       {guilds.map((guild, index) => (
-        <NavLink index={`${guild[1]}`} to={`/guild/${index + 1}`}>
+        <NavLink key={`${guild[1]}`} to={`/guild/${index}`}>
           <Card
             hoverable
             style={{ width: 240 }}

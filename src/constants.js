@@ -1,5 +1,5 @@
 export const NFT_CONTRACT_ADDRESS =
-  "0x85214a5621c0EeE716bdC87748D865c197D2Cf0a";
+  "0x676cEf263a2954DB6829383aa9d683c9cBc6B67c";
 export const NFT_CONTRACT_ABI = [
   {
     inputs: [],
@@ -162,8 +162,13 @@ export const NFT_CONTRACT_ABI = [
           },
           {
             internalType: "uint256",
-            name: "currentMembers",
+            name: "numberOfMembers",
             type: "uint256",
+          },
+          {
+            internalType: "address[]",
+            name: "members",
+            type: "address[]",
           },
         ],
         internalType: "struct GuildNFT.Guild[]",
@@ -274,6 +279,25 @@ export const NFT_CONTRACT_ABI = [
     type: "function",
   },
   {
+    inputs: [
+      {
+        internalType: "uint256",
+        name: "guildId",
+        type: "uint256",
+      },
+    ],
+    name: "returnGuildMembers",
+    outputs: [
+      {
+        internalType: "address[]",
+        name: "",
+        type: "address[]",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
     inputs: [],
     name: "returnGuilds",
     outputs: [
@@ -301,8 +325,13 @@ export const NFT_CONTRACT_ABI = [
           },
           {
             internalType: "uint256",
-            name: "currentMembers",
+            name: "numberOfMembers",
             type: "uint256",
+          },
+          {
+            internalType: "address[]",
+            name: "members",
+            type: "address[]",
           },
         ],
         internalType: "struct GuildNFT.Guild[]",

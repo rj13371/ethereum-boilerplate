@@ -19,7 +19,8 @@ const styles = {
   },
 };
 
-export default function CreatePoll() {
+export default function CreatePoll(props) {
+  const address = props.members;
   const Web3Api = useMoralisWeb3Api();
   const handleSubmit = async (values) => {
     try {
@@ -35,7 +36,7 @@ export default function CreatePoll() {
       const currentBlock = await fetchDateToBlock();
 
       const { title, body, date, choices } = values;
-      await createProposal(title, body, date, choices, currentBlock);
+      await createProposal(title, body, date, choices, currentBlock, address);
     } catch (e) {
       console.log(e);
     }
