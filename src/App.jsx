@@ -52,6 +52,7 @@ const styles = {
     alignItems: "center",
     fontSize: "15px",
     fontWeight: "600",
+    cursor: "pointer",
   },
 };
 const App = ({ isServerInfo }) => {
