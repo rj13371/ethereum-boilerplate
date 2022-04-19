@@ -27,6 +27,9 @@ const styles = {
   timeline: {
     marginBottom: "-45px",
   },
+  logo: {
+    alignSelf: "flex-start",
+  },
 };
 
 export default function Guild() {
@@ -157,6 +160,11 @@ export default function Guild() {
 
   return (
     <div style={{ display: "flex", gap: "10px" }}>
+      <img
+        style={styles.logo}
+        alt="guild logo"
+        src={guild.guildLogo || "error"}
+      />
       <Card
         style={styles.card}
         hoverable
@@ -165,7 +173,6 @@ export default function Guild() {
             📝 <Text strong>{guild.guildTitle || ""}</Text>
           </>
         }
-        cover={<img alt="guild logo" src={guild.guildLogo || "error"} />}
       >
         {allow === false && <Mint guildId={id} />}
 
@@ -210,6 +217,11 @@ export default function Guild() {
             </Card>
           </Card>
         ))}
+      <img
+        style={styles.logo}
+        alt="guild logo"
+        src={guild.guildLogo || "error"}
+      />
     </div>
   );
 }
