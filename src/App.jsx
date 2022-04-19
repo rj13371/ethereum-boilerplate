@@ -91,7 +91,11 @@ const App = ({ isServerInfo }) => {
               <CreateGuildPage />
             </ProtectedRoute>
             <Route exact path="/quickstart">
-              <QuickStart isServerInfo={isServerInfo} />
+              {!isAuthenticated ? (
+                <QuickStart isServerInfo={isServerInfo} />
+              ) : (
+                <Redirect to="/" />
+              )}
             </Route>
             <ProtectedRoute path="/wallet">
               <Wallet />
