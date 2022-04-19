@@ -24,7 +24,6 @@ export default function CreatePoll(props) {
   const Web3Api = useMoralisWeb3Api();
   const handleSubmit = async (values) => {
     try {
-      console.log(values);
       const timestamp = Math.round(new Date().getTime() / 1000);
 
       const fetchDateToBlock = async () => {

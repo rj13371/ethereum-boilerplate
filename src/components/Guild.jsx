@@ -6,7 +6,8 @@ import CreatePoll from "./CreatePoll";
 import { NFT_CONTRACT_ABI, NFT_CONTRACT_ADDRESS } from "../constants.js";
 import { useParams } from "react-router-dom";
 import { ApolloClient, InMemoryCache, gql } from "@apollo/client";
-import { vote } from "utils/snapshot";
+import { vote, getResults } from "utils/snapshot";
+import { useMoralisWeb3Api } from "react-moralis";
 
 const { Text } = Typography;
 
@@ -32,8 +33,10 @@ export default function Guild() {
   const { Moralis, isWeb3Enabled } = useMoralis();
   const { id } = useParams();
   const [polls, setPolls] = useState([
-    { title: "", body: "", end: "", choices: [], id: "" },
+    { title: "", body: "", end: "", choices: [], id: "", scores: [] },
   ]);
+
+  const Web3Api = useMoralisWeb3Api();
 
   const [members, setMembers] = useState([]);
 
@@ -70,6 +73,7 @@ export default function Guild() {
                 id
                 title
                 body
+                scores
                 choices
                 start
                 end
@@ -84,6 +88,7 @@ export default function Guild() {
             }
           `,
         });
+
         setPolls(res.data.proposals);
         console.log(res.data.proposals);
       };
@@ -118,49 +123,22 @@ export default function Guild() {
         const transaction = await Moralis.executeFunction(sendOptions);
         console.log(transaction);
         setMembers(transaction);
+
+        const timestamp = Math.round(new Date().getTime() / 1000);
+
+        const fetchDateToBlock = async () => {
+          const options = { chain: "rinkeby", date: timestamp };
+          const date = await Web3Api.native.getDateToBlock(options);
+          return date.block;
+        };
+
+        const currentBlock = await fetchDateToBlock();
+
+        getResults(currentBlock, transaction);
       };
       getMembers();
     }
   }, [isWeb3Enabled]);
-
-  // useMemo(() => {
-  //   if (isWeb3Enabled) {
-  //     const getVotingResultes = async () => {
-  //       const res = await client.query({
-  //         query: gql`
-  //           query Votes {
-  //             votes(
-  //               first: 1000
-  //               skip: 0
-  //               where: {
-  //                 proposal: "QmPvbwguLfcVryzBRrbY4Pb9bCtxURagdv1XjhtFLf3wHj"
-  //               }
-  //               orderBy: "created"
-  //               orderDirection: desc
-  //             ) {
-  //               id
-  //               voter
-  //               created
-  //               proposal {
-  //                 id
-  //               }
-  //               choice
-  //               space {
-  //                 id
-  //               }
-  //             }
-  //           }
-  //         `,
-  //       });
-  //       setPolls(res.data.votes);
-
-  //       for (const vote of res.data.votes) {
-  //       }
-  //     };
-
-  //     getGuilds();
-  //   }
-  // }, [polls]);
 
   return (
     <div style={{ display: "flex", gap: "10px" }}>
@@ -191,15 +169,29 @@ export default function Guild() {
           >
             <Text strong>{poll.body || ""}</Text>
             {poll.choices.map((choice, index) => (
-              <Button
-                id={index + 1}
-                type="dashed"
-                onClick={() => submitVote(poll.id, index + 1)}
-                block
-              >
-                {choice}
-              </Button>
+              <>
+                <Button
+                  id={index + 1}
+                  type="dashed"
+                  onClick={() => submitVote(poll.id, index + 1)}
+                  block
+                >
+                  {choice}
+                  {poll.scores[index]}
+                </Button>
+              </>
             ))}
+
+            <Card hoverable style={{ width: "300px" }}>
+              Results:
+              <br />
+              {poll.choices.map((choice, index) => (
+                <span key={choice}>
+                  <br />
+                  {choice} {poll.scores[index]}
+                </span>
+              ))}
+            </Card>
           </Card>
         ))}
     </div>
