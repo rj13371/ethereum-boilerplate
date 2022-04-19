@@ -29,6 +29,8 @@ export default function QuickStart() {
         title={
           <>
             📝 <Text strong>To-Do List</Text>
+            <h1>Welcome to Game Guilds!</h1>
+            <p>Please connect your wallet to continue</p>
           </>
         }
       ></Card>

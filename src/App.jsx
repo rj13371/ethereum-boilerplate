@@ -22,6 +22,7 @@ import Text from "antd/lib/typography/Text";
 import MenuItems from "./components/MenuItems";
 import GuildsPage from "pages/GuildsPage/GuildsPage";
 import CreateGuildPage from "pages/CreateGuildPage/CreateGuildPage";
+import ProtectedRoute from "components/ProtectedRoute/ProtectedRoute";
 const { Header, Footer } = Layout;
 
 const styles = {
@@ -83,30 +84,30 @@ const App = ({ isServerInfo }) => {
 
         <div style={styles.content}>
           <Switch>
-            <Route path="/guild/:id">
+            <ProtectedRoute path="/guild/:id">
               <Guild />
-            </Route>
-            <Route path="/create">
+            </ProtectedRoute>
+            <ProtectedRoute path="/create">
               <CreateGuildPage />
-            </Route>
+            </ProtectedRoute>
             <Route exact path="/quickstart">
               <QuickStart isServerInfo={isServerInfo} />
             </Route>
-            <Route path="/wallet">
+            <ProtectedRoute path="/wallet">
               <Wallet />
-            </Route>
-            <Route path="/erc20balance">
+            </ProtectedRoute>
+            <ProtectedRoute path="/erc20balance">
               <ERC20Balance />
-            </Route>
-            <Route path="/erc20transfers">
+            </ProtectedRoute>
+            <ProtectedRoute path="/erc20transfers">
               <ERC20Transfers />
-            </Route>
-            <Route path="/nftBalance">
+            </ProtectedRoute>
+            <ProtectedRoute path="/nftBalance">
               <NFTBalance />
-            </Route>
-            <Route path="/">
+            </ProtectedRoute>
+            <ProtectedRoute path="/">
               <GuildsPage />
-            </Route>
+            </ProtectedRoute>
             <Route path="/ethereum-boilerplate">
               <Redirect to="/" />
             </Route>
