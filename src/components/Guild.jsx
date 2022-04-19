@@ -1,4 +1,4 @@
-import { Card, Typography, Button } from "antd";
+import { Card, Typography, Button, Spin } from "antd";
 import React, { useMemo, useState, useEffect } from "react";
 import { useMoralis } from "react-moralis";
 import Mint from "utils/smart-contract/Mint";
@@ -30,7 +30,7 @@ const styles = {
 };
 
 export default function Guild() {
-  const { Moralis, isWeb3Enabled } = useMoralis();
+  const { Moralis, isWeb3Enabled, user } = useMoralis();
   const { id } = useParams();
   const [polls, setPolls] = useState([
     { title: "", body: "", end: "", choices: [], id: "", scores: [] },
@@ -40,10 +40,11 @@ export default function Guild() {
 
   const [members, setMembers] = useState([]);
 
+  const [allow, setAllow] = useState(false);
+
   const submitVote = async (proposalId, choice) => {
-    console.log(proposalId, choice);
+    //add popup notification here later
     const res = await vote(proposalId, choice);
-    console.log(res);
   };
 
   const client = new ApolloClient({
@@ -90,7 +91,6 @@ export default function Guild() {
         });
 
         setPolls(res.data.proposals);
-        console.log(res.data.proposals);
       };
       getPolls();
       const getGuilds = async () => {
@@ -101,7 +101,6 @@ export default function Guild() {
           chain: "rinkeby",
         };
         const transaction = await Moralis.executeFunction(sendOptions);
-        console.log(transaction);
         setGuild({
           guildMasterAddress: transaction[id][0],
           guildTitle: transaction[id][1],
@@ -121,9 +120,8 @@ export default function Guild() {
           },
         };
         const transaction = await Moralis.executeFunction(sendOptions);
-        console.log(transaction);
         setMembers(transaction);
-
+        //move this to utils folder afterwards
         const timestamp = Math.round(new Date().getTime() / 1000);
 
         const fetchDateToBlock = async () => {
@@ -140,6 +138,23 @@ export default function Guild() {
     }
   }, [isWeb3Enabled]);
 
+  useEffect(() => {
+    if (user) {
+      console.log(user.attributes.ethAddress, members);
+      const isMember = (address) =>
+        address.toUpperCase() === user.attributes.ethAddress.toUpperCase();
+      if (members.some(isMember)) {
+        setAllow(true);
+      }
+    }
+  }, [user, members]);
+
+  console.log(user, members);
+
+  if (!user) {
+    return <Spin />;
+  }
+
   return (
     <div style={{ display: "flex", gap: "10px" }}>
       <Card
@@ -152,10 +167,12 @@ export default function Guild() {
         }
         cover={<img alt="guild logo" src={guild.guildLogo || "error"} />}
       >
-        <Mint guildId={id} />
+        {allow === false && <Mint guildId={id} />}
+
         {members.length > 0 && <CreatePoll members={members} />}
       </Card>
       {polls.length > 0 &&
+        allow === true &&
         polls.map((poll) => (
           <Card
             id={poll.id}
@@ -177,7 +194,6 @@ export default function Guild() {
                   block
                 >
                   {choice}
-                  {poll.scores[index]}
                 </Button>
               </>
             ))}
