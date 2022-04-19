@@ -8,20 +8,20 @@ import {
 } from "react-router-dom";
 import Account from "components/Account/Account";
 import Chains from "components/Chains";
-import Guild from "components/Guild";
-import ERC20Balance from "components/ERC20Balance";
+import Guild from "pages/Guild/Guild";
+import ERC20Balance from "pages/ERC20Balance/ERC20Balance";
 import ERC20Transfers from "components/ERC20Transfers";
-import NFTBalance from "components/NFTBalance";
-import Wallet from "components/Wallet";
+import NFTBalance from "pages/NFTBalance/NFTBalance";
+import Wallet from "pages/Wallet";
 import { Layout } from "antd";
 import "antd/dist/antd.css";
 import NativeBalance from "components/NativeBalance";
 import "./style.css";
-import QuickStart from "components/QuickStart";
+import QuickStart from "pages/QuickStart/QuickStart";
 import Text from "antd/lib/typography/Text";
 import MenuItems from "./components/MenuItems";
-import GuildsPage from "components/GuildsPage";
-import CreateGuildPage from "components/CreateGuildPage";
+import GuildsPage from "pages/GuildsPage/GuildsPage";
+import CreateGuildPage from "pages/CreateGuildPage/CreateGuildPage";
 const { Header, Footer } = Layout;
 
 const styles = {
@@ -86,9 +86,6 @@ const App = ({ isServerInfo }) => {
             <Route path="/guild/:id">
               <Guild />
             </Route>
-            <Route path="/guild">
-              <GuildsPage />
-            </Route>
             <Route path="/create">
               <CreateGuildPage />
             </Route>
@@ -108,13 +105,17 @@ const App = ({ isServerInfo }) => {
               <NFTBalance />
             </Route>
             <Route path="/">
-              <Redirect to="/quickstart" />
+              <GuildsPage />
             </Route>
             <Route path="/ethereum-boilerplate">
-              <Redirect to="/quickstart" />
+              <Redirect to="/" />
             </Route>
             <Route path="/nonauthenticated">
               <>Please login using the "Authenticate" button</>
+            </Route>
+            {/* Catch all route */}
+            <Route path="*">
+              <Redirect to="/" />
             </Route>
           </Switch>
         </div>

@@ -3,7 +3,7 @@ import { Button, Input, notification } from "antd";
 import Text from "antd/lib/typography/Text";
 import { useEffect, useState } from "react";
 import { useMoralis } from "react-moralis";
-import AddressInput from "../../AddressInput";
+import AddressInput from "../../../components/AddressInput";
 import AssetSelector from "./AssetSelector";
 
 const styles = {

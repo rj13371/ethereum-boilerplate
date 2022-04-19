@@ -1,6 +1,6 @@
 import { useMoralis, useERC20Balances } from "react-moralis";
 import { Skeleton, Table } from "antd";
-import { getEllipsisTxt } from "../helpers/formatters";
+import { getEllipsisTxt } from "../../helpers/formatters";
 
 function ERC20Balance(props) {
   const { data: assets } = useERC20Balances(props);

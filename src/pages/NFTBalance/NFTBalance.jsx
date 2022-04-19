@@ -7,7 +7,7 @@ import {
   ShoppingCartOutlined,
 } from "@ant-design/icons";
 import { getExplorer } from "helpers/networks";
-import AddressInput from "./AddressInput";
+import AddressInput from "../../components/AddressInput";
 import { useVerifyMetadata } from "hooks/useVerifyMetadata";
 
 const { Meta } = Card;

@@ -1,8 +1,8 @@
 import { Card } from "antd";
 import React, { useEffect, useState } from "react";
 import { useMoralis } from "react-moralis";
-import GuildsDisplay from "./GuildsDisplay";
-import { NFT_CONTRACT_ABI, NFT_CONTRACT_ADDRESS } from "../constants.js";
+import GuildsDisplay from "../../components/GuildsDisplay";
+import { NFT_CONTRACT_ABI, NFT_CONTRACT_ADDRESS } from "../../constants.js";
 
 const styles = {
   title: {
