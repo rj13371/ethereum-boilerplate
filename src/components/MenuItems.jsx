@@ -4,8 +4,6 @@ import { NavLink } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faHome,
-  faWallet,
-  faPiggyBank,
   faPeopleRoof,
   faAddressCard,
   faDragon,
@@ -30,19 +28,6 @@ function MenuItems() {
       <Menu.Item key="/quickstart">
         <NavLink to="/quickstart">
           <FontAwesomeIcon icon={faHome} /> {"   "} Home
-        </NavLink>
-      </Menu.Item>
-      <Menu.Item key="/wallet">
-        <NavLink to="/wallet">
-          <FontAwesomeIcon icon={faWallet} /> {"   "}
-          Wallet
-        </NavLink>
-      </Menu.Item>
-      <Menu.Item key="/erc20balance">
-        <NavLink to="/erc20balance">
-          <FontAwesomeIcon icon={faPiggyBank} />
-          {"   "}
-          Balances
         </NavLink>
       </Menu.Item>
       <Menu.Item key="/create">
