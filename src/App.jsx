@@ -5,12 +5,11 @@ import {
   Switch,
   Route,
   Redirect,
+  NavLink,
 } from "react-router-dom";
 import Account from "components/Account/Account";
 import Chains from "components/Chains";
 import Guild from "pages/Guild/Guild";
-import ERC20Balance from "pages/ERC20Balance/ERC20Balance";
-import ERC20Transfers from "components/ERC20Transfers";
 import NFTBalance from "pages/NFTBalance/NFTBalance";
 import Wallet from "pages/Wallet";
 import { Layout } from "antd";
@@ -23,6 +22,7 @@ import MenuItems from "./components/MenuItems";
 import GuildsPage from "pages/GuildsPage/GuildsPage";
 import CreateGuildPage from "pages/CreateGuildPage/CreateGuildPage";
 import ProtectedRoute from "components/ProtectedRoute/ProtectedRoute";
+
 const { Header, Footer } = Layout;
 
 const styles = {
@@ -122,13 +122,15 @@ const App = ({ isServerInfo }) => {
 
 export const Logo = () => (
   <div style={{ display: "flex" }}>
-    <img
-      width="60"
-      height="38"
-      viewBox="0 0 50 38"
-      fill="none"
-      src={process.env.PUBLIC_URL + "/logo.jpg"}
-    />
+    <NavLink to={`/`}>
+      <img
+        width="60"
+        height="38"
+        viewBox="0 0 50 38"
+        fill="none"
+        src={process.env.PUBLIC_URL + "/logo.jpg"}
+      />
+    </NavLink>
   </div>
 );
 

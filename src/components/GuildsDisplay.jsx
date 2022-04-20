@@ -1,8 +1,6 @@
-import { Card, Space, Spin, Col, Row, Image } from "antd";
+import { Card, Space, Spin, Col, Row, Image, Button } from "antd";
 import React from "react";
 import { NavLink } from "react-router-dom";
-import { faLongArrowAltRight } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const { Meta } = Card;
 
@@ -45,6 +43,15 @@ export default function GuildsDisplay(props) {
                     title={`${guild[1]}`}
                     description={`${Number(guild[4]._hex)} members`}
                   />
+
+                  <Button
+                    style={{ marginTop: "10px" }}
+                    type="ghost"
+                    shape="round"
+                    size={"large"}
+                  >
+                    Join
+                  </Button>
                 </Card>
               </NavLink>
             </Col>
