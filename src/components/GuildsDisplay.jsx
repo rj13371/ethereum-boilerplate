@@ -13,11 +13,12 @@ export default function GuildsDisplay(props) {
 
   const style = {
     padding: "10%",
+    margin: "30%",
     textAlign: "center",
     display: "inline-flex",
     alignItems: "center",
-    width: 320,
-    height: 400,
+    width: 180,
+    height: 230,
   };
 
   return (
@@ -30,8 +31,98 @@ export default function GuildsDisplay(props) {
                 <Card style={style} hoverable>
                   <Image
                     style={{
-                      width: 200,
-                      height: 200,
+                      width: 100,
+                      height: 100,
+                      borderRadius: "50%",
+                    }}
+                    preview={false}
+                    alt={`${guild[1]}'s logo`}
+                    src={guild[2]}
+                  />
+
+                  <Meta
+                    title={`${guild[1]}`}
+                    description={`${Number(guild[4]._hex)} members`}
+                  />
+
+                  <Button
+                    style={{ marginTop: "10px" }}
+                    type="ghost"
+                    shape="round"
+                    size={"large"}
+                  >
+                    Join
+                  </Button>
+                </Card>
+              </NavLink>
+            </Col>
+            <Col>
+              <NavLink key={`${guild[1]}`} to={`/guild/${index}`}>
+                <Card style={style} hoverable>
+                  <Image
+                    style={{
+                      width: 100,
+                      height: 100,
+                      borderRadius: "50%",
+                    }}
+                    preview={false}
+                    alt={`${guild[1]}'s logo`}
+                    src={guild[2]}
+                  />
+
+                  <Meta
+                    title={`${guild[1]}`}
+                    description={`${Number(guild[4]._hex)} members`}
+                  />
+
+                  <Button
+                    style={{ marginTop: "10px" }}
+                    type="ghost"
+                    shape="round"
+                    size={"large"}
+                  >
+                    Join
+                  </Button>
+                </Card>
+              </NavLink>
+            </Col>
+            <Col>
+              <NavLink key={`${guild[1]}`} to={`/guild/${index}`}>
+                <Card style={style} hoverable>
+                  <Image
+                    style={{
+                      width: 100,
+                      height: 100,
+                      borderRadius: "50%",
+                    }}
+                    preview={false}
+                    alt={`${guild[1]}'s logo`}
+                    src={guild[2]}
+                  />
+
+                  <Meta
+                    title={`${guild[1]}`}
+                    description={`${Number(guild[4]._hex)} members`}
+                  />
+
+                  <Button
+                    style={{ marginTop: "10px" }}
+                    type="ghost"
+                    shape="round"
+                    size={"large"}
+                  >
+                    Join
+                  </Button>
+                </Card>
+              </NavLink>
+            </Col>
+            <Col>
+              <NavLink key={`${guild[1]}`} to={`/guild/${index}`}>
+                <Card style={style} hoverable>
+                  <Image
+                    style={{
+                      width: 100,
+                      height: 100,
                       borderRadius: "50%",
                     }}
                     preview={false}
