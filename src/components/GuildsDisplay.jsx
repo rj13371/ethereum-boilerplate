@@ -1,4 +1,4 @@
-import { Card, Space, Spin, Col, Row, Image, Button } from "antd";
+import { Card, Spin, Col, Row, Image, Button } from "antd";
 import React from "react";
 import { NavLink } from "react-router-dom";
 
@@ -13,7 +13,6 @@ export default function GuildsDisplay(props) {
 
   const style = {
     padding: "10%",
-    margin: "30%",
     textAlign: "center",
     display: "inline-flex",
     alignItems: "center",
@@ -24,10 +23,10 @@ export default function GuildsDisplay(props) {
   return (
     <>
       <Row gutter={{ xs: 8, sm: 16, md: 24, lg: 32 }}>
-        {guilds.map((guild, index) => (
+        {guilds.map((guild) => (
           <>
             <Col>
-              <NavLink key={`${guild[1]}`} to={`/guild/${index}`}>
+              <NavLink key={`${guild[1]}`} to={`/guild/${guild.index}`}>
                 <Card style={style} hoverable>
                   <Image
                     style={{
@@ -42,97 +41,7 @@ export default function GuildsDisplay(props) {
 
                   <Meta
                     title={`${guild[1]}`}
-                    description={`${Number(guild[4]._hex)} members`}
-                  />
-
-                  <Button
-                    style={{ marginTop: "10px" }}
-                    type="ghost"
-                    shape="round"
-                    size={"large"}
-                  >
-                    Join
-                  </Button>
-                </Card>
-              </NavLink>
-            </Col>
-            <Col>
-              <NavLink key={`${guild[1]}`} to={`/guild/${index}`}>
-                <Card style={style} hoverable>
-                  <Image
-                    style={{
-                      width: 100,
-                      height: 100,
-                      borderRadius: "50%",
-                    }}
-                    preview={false}
-                    alt={`${guild[1]}'s logo`}
-                    src={guild[2]}
-                  />
-
-                  <Meta
-                    title={`${guild[1]}`}
-                    description={`${Number(guild[4]._hex)} members`}
-                  />
-
-                  <Button
-                    style={{ marginTop: "10px" }}
-                    type="ghost"
-                    shape="round"
-                    size={"large"}
-                  >
-                    Join
-                  </Button>
-                </Card>
-              </NavLink>
-            </Col>
-            <Col>
-              <NavLink key={`${guild[1]}`} to={`/guild/${index}`}>
-                <Card style={style} hoverable>
-                  <Image
-                    style={{
-                      width: 100,
-                      height: 100,
-                      borderRadius: "50%",
-                    }}
-                    preview={false}
-                    alt={`${guild[1]}'s logo`}
-                    src={guild[2]}
-                  />
-
-                  <Meta
-                    title={`${guild[1]}`}
-                    description={`${Number(guild[4]._hex)} members`}
-                  />
-
-                  <Button
-                    style={{ marginTop: "10px" }}
-                    type="ghost"
-                    shape="round"
-                    size={"large"}
-                  >
-                    Join
-                  </Button>
-                </Card>
-              </NavLink>
-            </Col>
-            <Col>
-              <NavLink key={`${guild[1]}`} to={`/guild/${index}`}>
-                <Card style={style} hoverable>
-                  <Image
-                    style={{
-                      width: 100,
-                      height: 100,
-                      borderRadius: "50%",
-                    }}
-                    preview={false}
-                    alt={`${guild[1]}'s logo`}
-                    src={guild[2]}
-                  />
-
-                  <Meta
-                    title={`${guild[1]}`}
-                    description={`${Number(guild[4]._hex)} members`}
+                    description={`${Number(guild[4].hex)} members`}
                   />
 
                   <Button

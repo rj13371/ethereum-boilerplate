@@ -22,6 +22,7 @@ import MenuItems from "./components/MenuItems";
 import GuildsPage from "pages/GuildsPage/GuildsPage";
 import CreateGuildPage from "pages/CreateGuildPage/CreateGuildPage";
 import ProtectedRoute from "components/ProtectedRoute/ProtectedRoute";
+import Landing from "pages/Landing/Landing";
 
 const { Header, Footer } = Layout;
 
@@ -74,8 +75,9 @@ const App = ({ isServerInfo }) => {
       <Router>
         <Header style={styles.header}>
           <Logo />
-          <MenuItems />
+
           <div style={styles.headerRight}>
+            <MenuItems />
             <Chains />
             <NativeBalance />
             <Account />
@@ -87,6 +89,9 @@ const App = ({ isServerInfo }) => {
             <ProtectedRoute path="/guild/:id">
               <Guild />
             </ProtectedRoute>
+            <Route path="/guild">
+              <GuildsPage />
+            </Route>
             <ProtectedRoute path="/create">
               <CreateGuildPage />
             </ProtectedRoute>
@@ -101,7 +106,7 @@ const App = ({ isServerInfo }) => {
               <NFTBalance />
             </ProtectedRoute>
             <ProtectedRoute path="/">
-              <GuildsPage />
+              <Landing />
             </ProtectedRoute>
             <Route path="/ethereum-boilerplate">
               <Redirect to="/" />

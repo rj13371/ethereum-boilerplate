@@ -25,11 +25,6 @@ function MenuItems() {
       }}
       defaultSelectedKeys={[pathname]}
     >
-      <Menu.Item key="/quickstart">
-        <NavLink to="/quickstart">
-          <FontAwesomeIcon icon={faHome} /> {"   "} Home
-        </NavLink>
-      </Menu.Item>
       <Menu.Item key="/create">
         <NavLink to="/create">
           <FontAwesomeIcon icon={faDragon} /> {"   "}
