@@ -47,7 +47,7 @@ export async function createProposal(
     metadata: JSON.stringify({}),
   });
 
-  console.log(receipt);
+  return receipt;
 }
 
 export async function vote(proposalId, choice) {
@@ -62,7 +62,7 @@ export async function vote(proposalId, choice) {
     metadata: JSON.stringify({}),
   });
 
-  console.log(receipt);
+  return receipt;
 }
 
 export async function getResults(currentBlock, address) {

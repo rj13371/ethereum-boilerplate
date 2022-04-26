@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useState } from "react";
+import { Popup } from "components/Popup";
 import { useMoralis } from "react-moralis";
 import Moralis from "moralis";
 import { Button } from "antd";
@@ -6,13 +7,13 @@ import { NFT_CONTRACT_ABI, NFT_CONTRACT_ADDRESS } from "../../constants";
 
 export default function MintNFT(props) {
   const { account } = useMoralis();
+  const [show, setShow] = useState(false);
+  const [content, setContent] = useState("");
   const ethers = Moralis.web3Library;
 
   const mintNFT = async () => {
+    setShow(false);
     const web3Provider = await Moralis.enableWeb3();
-
-    //const provider = new ethers.providers.Web3Provider(Moralis.provider, "any")}
-    //  provider = new ethers.providers.JsonRpcProvider();
     await web3Provider.send("eth_requestAccounts", [0]);
     let signer = web3Provider.getSigner();
 
@@ -33,7 +34,10 @@ export default function MintNFT(props) {
         .catch((e) => window.alert(e.message));
 
       const res = await mintTx.wait();
-      console.log(res);
+      if (res) {
+        setContent("Transaction sent! Membership NFT mint pending...");
+        setShow(true);
+      }
     };
 
     mint();
@@ -41,6 +45,7 @@ export default function MintNFT(props) {
 
   return (
     <>
+      <Popup show={show} content={content} />
       <Button onClick={() => mintNFT()} type="primary">
         {" "}
         Mint Guild Membership{" "}

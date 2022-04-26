@@ -1,4 +1,4 @@
-import { Card, Typography, Button, Spin } from "antd";
+import { Card, Typography, Button, Spin, Image } from "antd";
 import React, { useContext, useState, useEffect } from "react";
 import { useMoralis } from "react-moralis";
 import Mint from "utils/smart-contract/Mint";
@@ -26,6 +26,8 @@ const styles = {
   },
   logo: {
     alignSelf: "flex-start",
+    width: "200px",
+    height: "200px",
   },
 };
 
@@ -40,145 +42,44 @@ export default function Guild() {
     _setId(id);
   }, []);
 
-  // const [polls, setPolls] = useState([
-  //   { title: "", body: "", end: "", choices: [], id: "", scores: [] },
-  // ]);
-
-  // const Web3Api = useMoralisWeb3Api();
-
-  // const [members, setMembers] = useState([]);
-
-  // const [allow, setAllow] = useState(false);
-
-  // const submitVote = async (proposalId, choice) => {
-  //   //add popup notification here later
-  //   const res = await vote(proposalId, choice);
-  // };
-
-  // const client = new ApolloClient({
-  //   uri: "https://hub.snapshot.org/graphql",
-  //   cache: new InMemoryCache(),
-  // });
-
-  // const [guild, setGuild] = useState({
-  //   guildMasterAddress: "",
-  //   guildTitle: "",
-  //   guildLogo: "",
-  // });
-
-  // useMemo(() => {
-  //   if (isWeb3Enabled) {
-  //     const getPolls = async () => {
-  //       const res = await client.query({
-  //         query: gql`
-  //           query Proposals {
-  //             proposals(
-  //               first: 20
-  //               skip: 0
-  //               where: { space_in: ["dappchain.eth"], state: "active" }
-  //               orderBy: "created"
-  //               orderDirection: desc
-  //             ) {
-  //               id
-  //               title
-  //               body
-  //               scores
-  //               choices
-  //               start
-  //               end
-  //               snapshot
-  //               state
-  //               author
-  //               space {
-  //                 id
-  //                 name
-  //               }
-  //             }
-  //           }
-  //         `,
-  //       });
-
-  //       setPolls(res.data.proposals);
-  //     };
-  //     getPolls();
-  //     const getGuilds = async () => {
-  //       const sendOptions = {
-  //         contractAddress: NFT_CONTRACT_ADDRESS,
-  //         abi: NFT_CONTRACT_ABI,
-  //         functionName: "returnGuilds",
-  //         chain: "rinkeby",
-  //       };
-  //       const transaction = await Moralis.executeFunction(sendOptions);
-  //       setGuild({
-  //         guildMasterAddress: transaction[id][0],
-  //         guildTitle: transaction[id][1],
-  //         guildLogo: transaction[id][2],
-  //       });
-  //     };
-  //     getGuilds();
-
-  //     const getMembers = async () => {
-  //       const sendOptions = {
-  //         contractAddress: NFT_CONTRACT_ADDRESS,
-  //         abi: NFT_CONTRACT_ABI,
-  //         functionName: "returnGuildMembers",
-  //         chain: "rinkeby",
-  //         params: {
-  //           guildId: id,
-  //         },
-  //       };
-  //       const transaction = await Moralis.executeFunction(sendOptions);
-  //       setMembers(transaction);
-  //       //move this to utils folder afterwards
-  //       const timestamp = Math.round(new Date().getTime() / 1000);
-
-  //       const fetchDateToBlock = async () => {
-  //         const options = { chain: "rinkeby", date: timestamp };
-  //         const date = await Web3Api.native.getDateToBlock(options);
-  //         return date.block;
-  //       };
-
-  //       const currentBlock = await fetchDateToBlock();
-
-  //       getResults(currentBlock, transaction);
-  //     };
-  //     getMembers();
-  //   }
-  // }, [isWeb3Enabled]);
-
-  // useEffect(() => {
-  //   if (user) {
-  //     console.log(user.attributes.ethAddress, members);
-  //     const isMember = (address) =>
-  //       address.toUpperCase() === user.attributes.ethAddress.toUpperCase();
-  //     if (members.some(isMember)) {
-  //       setAllow(true);
-  //     }
-  //   }
-  // }, [user, members]);
-
-  // console.log(user, members);
-
   if (!user) {
     return <Spin />;
   }
 
   return (
-    <div style={{ display: "flex", gap: "10px" }}>
-      <img
-        style={styles.logo}
-        alt="guild logo"
-        src={guild.guildLogo || "error"}
-      />
+    <div
+      style={{
+        display: "flex",
+        justifyContent: "center",
+        textAlign: "center",
+        gap: "10px",
+      }}
+    >
       <Card
         style={styles.card}
         hoverable
         title={
           <>
-            📝 <Text strong>{guild.guildTitle || ""}</Text>
+            <Text strong>{guild.guildTitle || ""}</Text>
           </>
         }
       >
+        <Image
+          preview={false}
+          placeholder={
+            <Image
+              preview={false}
+              src={`${guild.guildLogo}?x-oss-process=image/blur,r_50,s_50/quality,q_1/resize,m_mfit,h_200,w_200`}
+              width={200}
+            />
+          }
+          style={styles.logo}
+          alt="guild logo"
+          src={guild.guildLogo || "error"}
+        />
+        <br />
+        <br />
+        <Text strong>{`${members.length + 1} guild members` || ""}</Text>
         {allow === false && <Mint guildId={id} />}
 
         {members.length > 0 && <CreatePoll members={members} />}
@@ -222,11 +123,6 @@ export default function Guild() {
             </Card>
           </Card>
         ))}
-      <img
-        style={styles.logo}
-        alt="guild logo"
-        src={guild.guildLogo || "error"}
-      />
     </div>
   );
 }

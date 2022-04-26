@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useState } from "react";
+import { Popup } from "components/Popup.jsx";
 import { NFT_CONTRACT_ABI, NFT_CONTRACT_ADDRESS } from "../../constants.js";
 import Moralis from "moralis";
 import {
@@ -26,10 +27,13 @@ const styles = {
 };
 
 export default function CreateGuild() {
+  const [show, setShow] = useState(false);
+  const [content, setContent] = useState("");
+
   const createGuild = async (guildName, file, maxMembers) => {
+    setShow(false);
     const ipfsFile = new Moralis.File(file[0].name, file[0].originFileObj);
     await ipfsFile.saveIPFS();
-    console.log(ipfsFile);
     const fileURL = ipfsFile._ipfs;
 
     const sendOptions = {
@@ -45,7 +49,10 @@ export default function CreateGuild() {
     };
 
     const transaction = await Moralis.executeFunction(sendOptions);
-    console.log(transaction);
+    if (transaction) {
+      setContent("Transaction sent! Guild creation pending...");
+      setShow(true);
+    }
   };
 
   const handleSubmit = async (values) => {
@@ -76,6 +83,7 @@ export default function CreateGuild() {
       direction="horizontal"
       style={{ width: "100%", justifyContent: "center" }}
     >
+      <Popup show={show} content={content} />
       <Card style={styles.card} title={"Create Guild"}>
         <Form
           name="validate_other"

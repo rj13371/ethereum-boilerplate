@@ -3,7 +3,6 @@ import React, { useState, useEffect } from "react";
 
 export const Popup = (props) => {
   const { show, content } = props;
-  console.log(content);
   const [visible, setVisible] = useState(false);
   const [confirmLoading, setConfirmLoading] = useState(false);
 
@@ -16,7 +15,7 @@ export const Popup = (props) => {
     setTimeout(() => {
       setVisible(false);
       setConfirmLoading(false);
-    }, 2000);
+    }, 500);
   };
 
   const handleCancel = () => {

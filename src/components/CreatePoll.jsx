@@ -28,6 +28,7 @@ export default function CreatePoll(props) {
 
   const handleSubmit = async (values) => {
     try {
+      setShow(false);
       const timestamp = Math.round(new Date().getTime() / 1000);
 
       const fetchDateToBlock = async () => {
@@ -39,6 +40,17 @@ export default function CreatePoll(props) {
       const currentBlock = await fetchDateToBlock();
 
       const { title, body, date, choices } = values;
+
+      if (!date) {
+        setContent("Missing date!");
+        return setShow(true);
+      }
+
+      if (!title) {
+        setContent("Missing title!");
+        return setShow(true);
+      }
+
       const res = await createProposal(
         title,
         body,
