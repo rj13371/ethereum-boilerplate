@@ -19,6 +19,8 @@ describe("GuildNFT tests", function () {
 
     await guildNFTContract.connect(user).mintNFT(user.address, 0);
     await guildNFTContract.connect(user).mintNFT(user.address, 1);
+    await guildNFTContract.connect(user).mintNFT(user.address, 1);
+    await guildNFTContract.connect(user).mintNFT(user.address, 0);
     await guildNFTContract.connect(user).mintNFT(user.address, 0);
 
     const balanceOf = await guildNFTContract
@@ -26,13 +28,8 @@ describe("GuildNFT tests", function () {
       .balanceOf(user.address);
 
     const returnGuilds = await guildNFTContract.connect(user).returnGuilds();
-    const tokenIds = await guildNFTContract.connect(user).tokenIdsToGuildId(1);
 
-    const returnGuildMembers = await guildNFTContract
-      .connect(user)
-      .returnGuildMembers(0);
-
-    console.log(returnGuildMembers);
+    console.log(returnGuilds);
 
     expect(returnGuilds[0].guildMasterAddress).to.equal(user.address);
   });

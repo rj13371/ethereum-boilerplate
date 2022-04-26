@@ -18,6 +18,7 @@ contract GuildNFT is ERC721URIStorage {
         uint256 maxGuildMembers;
         uint256 numberOfMembers;
         address[] members;
+        uint256[] tokenIds;
     }
 
     Guild[] Guilds;
@@ -31,8 +32,9 @@ contract GuildNFT is ERC721URIStorage {
         require(maxGuildMembers < 100000);
 
         address[] memory members;
+        uint256[] memory tokenIds;
 
-        Guild memory guild = Guild(msg.sender, guildName, guildNFTURI, maxGuildMembers, 1, members);
+        Guild memory guild = Guild(msg.sender, guildName, guildNFTURI, maxGuildMembers, 1, members, tokenIds);
         Guilds.push(guild);
 
         return Guilds;
@@ -55,6 +57,7 @@ contract GuildNFT is ERC721URIStorage {
 
         uint256 newItemId = _tokenIds.current();
         tokenIdsToGuildId[newItemId] = guildId;
+        Guilds[guildId].tokenIds.push(newItemId);
         _mint(recipient, newItemId);
         _setTokenURI(newItemId, Guilds[guildId].guildNFTURI);
 
