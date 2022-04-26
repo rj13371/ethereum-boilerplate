@@ -17,7 +17,8 @@ import "antd/dist/antd.css";
 import NativeBalance from "components/NativeBalance";
 import "./style.css";
 import QuickStart from "pages/QuickStart/QuickStart";
-import Text from "antd/lib/typography/Text";
+import { Typography } from "antd";
+
 import MenuItems from "./components/MenuItems";
 import GuildsPage from "pages/GuildsPage/GuildsPage";
 import CreateGuildPage from "pages/CreateGuildPage/CreateGuildPage";
@@ -25,6 +26,7 @@ import ProtectedRoute from "components/ProtectedRoute/ProtectedRoute";
 import Landing from "pages/Landing/Landing";
 
 const { Header, Footer } = Layout;
+const { Title } = Typography;
 
 const styles = {
   content: {
@@ -75,7 +77,6 @@ const App = ({ isServerInfo }) => {
       <Router>
         <Header style={styles.header}>
           <Logo />
-
           <div style={styles.headerRight}>
             <MenuItems />
             <Chains />
@@ -96,20 +97,13 @@ const App = ({ isServerInfo }) => {
               <CreateGuildPage />
             </ProtectedRoute>
             <Route exact path="/quickstart">
-              {!isAuthenticated ? (
-                <QuickStart isServerInfo={isServerInfo} />
-              ) : (
-                <Redirect to="/" />
-              )}
+              <QuickStart isServerInfo={isServerInfo} />
             </Route>
             <ProtectedRoute path="/nftBalance">
               <NFTBalance />
             </ProtectedRoute>
-            <ProtectedRoute path="/">
+            <Route path="/">
               <Landing />
-            </ProtectedRoute>
-            <Route path="/ethereum-boilerplate">
-              <Redirect to="/" />
             </Route>
             <Route path="/nonauthenticated">
               <>Please login using the "Authenticate" button</>
@@ -133,8 +127,11 @@ export const Logo = () => (
         height="38"
         viewBox="0 0 50 38"
         fill="none"
-        src={process.env.PUBLIC_URL + "/logo.jpg"}
+        src={process.env.PUBLIC_URL + "/logo.svg"}
       />
+    </NavLink>
+    <NavLink to={`/`}>
+      <Title level={4}>Game Guilds DAO</Title>
     </NavLink>
   </div>
 );

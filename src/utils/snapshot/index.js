@@ -42,7 +42,7 @@ export async function createProposal(
     timestamp,
     snapshot: currentBlock,
     network: "4",
-    strategies: `[{"name":"erc721","network":"4","params":{"symbol":"GGD","address":"0x676cEf263a2954DB6829383aa9d683c9cBc6B67c"}}],"validation":{"name":"basic","params":{}}`,
+    strategies: `[{"name":"erc721","network":"4","params":{"symbol":"GGD","address":"0x676cEf263a2954DB6829383aa9d683c9cBc6B67c"}}]`,
     plugins: JSON.stringify({}),
     metadata: JSON.stringify({}),
   });

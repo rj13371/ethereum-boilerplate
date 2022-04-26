@@ -77,7 +77,7 @@ export default function GuildsPage() {
         <Search
           placeholder="Guild name"
           onSearch={onSearch}
-          style={{ width: 250, margin: "50px" }}
+          style={{ width: 250, margin: "20px" }}
         />
         {guilds.length > 0 && <GuildsDisplay guilds={guilds} />}
       </Card>

@@ -34,7 +34,7 @@ function MenuItems() {
       <Menu.Item key="/guild">
         <NavLink to="/guild">
           <FontAwesomeIcon icon={faPeopleRoof} /> {"   "}
-          Join
+          Guilds
         </NavLink>
       </Menu.Item>
       <Menu.Item key="/nftBalance">
